@@ -6,9 +6,18 @@
 //
 
 import Foundation
+import Combine
 
-var landmarks: [Landmark] = load("landmarkData.json")
+final class ModelData: ObservableObject {
+    // here we define the landmarks but with a
+    // Published annotation to make that a stateful variable
+    // that can publish and subscribe into a StateObject
+    @Published var landmarks: [Landmark] = load("landmarkData.json")
+    
+}
 
+
+// That load will be something like an API call to return all landmarks
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
     
