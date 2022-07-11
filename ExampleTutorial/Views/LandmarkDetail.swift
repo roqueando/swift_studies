@@ -1,47 +1,49 @@
 //
-//  ContentView.swift
+//  LandmarkDetail.swift
 //  ExampleTutorial
 //
-//  Created by Ayaworan on 10/07/22.
+//  Created by Ayaworan on 11/07/22.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct LandmarkDetail: View {
+    var landmark: Landmark
     var body: some View {
-        VStack {
-            MapView()
+        ScrollView {
+            MapView(coordinate: landmark.locationCoordinate)
                 .ignoresSafeArea(edges: .top)
                 .frame(height: 300)
             
-            CircleImage()
+            CircleImage(image: landmark.image)
                 .offset(y: -130)
                 .padding(.bottom, -130)
             VStack(alignment: .leading) {
-                Text("Bosque dos Jequitibás")
+                Text(landmark.name)
                     .font(.title)
                     .foregroundColor(.orange)
                 
                 HStack {
-                    Text("Parque ecológico de campinas")
+                    Text(landmark.park)
                         .font(.subheadline)
                     Spacer()
-                    Text("Campinas - SP")
+                    Text(landmark.state)
                 }
                 .foregroundColor(.gray)
                 Divider()
-                Text("Sobre o Bosque dos Jequitibás")
+                Text("About \(landmark.name)")
                     .font(.title2)
-                Text("Lorem description about this")
+                Text(landmark.description)
             }
             .padding()
-            Spacer()
         }
+        .navigationTitle(landmark.name)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct LandmarkDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LandmarkDetail(landmark: landmarks[0])
     }
 }
